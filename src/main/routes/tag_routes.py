@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from ...views.http_types.http_requests import HttpRequest
 from ...views.tag_creator_view import TagCreatorView
 from ...errors.error_handler import handle_error
+from ...validators.tag_creator_validator import tag_creator_validator
 
 tags_routes_bp = Blueprint('tag_routes', __name__)
 
@@ -9,6 +10,7 @@ tags_routes_bp = Blueprint('tag_routes', __name__)
 def create_tags():
     response = None
     try:
+        tag_creator_validator(request)
         tag_creator_view = TagCreatorView()
         http_requests = HttpRequest(body=request.json)
 
