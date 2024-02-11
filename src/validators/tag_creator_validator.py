@@ -1,4 +1,5 @@
 from cerberus import Validator
+from ..errors.error_types.http_unprocessable_entity import HttpUnprocessableEntityError
 
 def tag_creator_validator(request: any) -> None:
     body_validator = Validator({
@@ -8,4 +9,4 @@ def tag_creator_validator(request: any) -> None:
     response = body_validator.validate(request.json)
 
     if not response:
-        raise Exception(body_validator.errors)
+        raise HttpUnprocessableEntityError(body_validator.errors)
